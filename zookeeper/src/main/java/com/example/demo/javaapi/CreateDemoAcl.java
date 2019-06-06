@@ -31,11 +31,15 @@ public class CreateDemoAcl implements Watcher {
    private  static  ZooKeeper zk;
     public static void main(String[] args) throws Exception {
         zk = ZkDemo.getIntanse();
+        //用客户端的时候必须得添加账户才可以访问   addauth digest 用户名：密码
         zk.addAuthInfo("digest","zhuzhiqiang:zhuzhiqiang".getBytes());
         ACL acl=new ACL(ZooDefs.Perms.READ,new Id("auth","zhuzhiqiang:zhuzhiqiang"));
         List<ACL> acls=new ArrayList<ACL>();
         acls.add(acl);
         zk.create("/javaapi4","123".getBytes(),acls , CreateMode.PERSISTENT);
+        byte[] data = zk.getData("/javaapi4", new CreateDemo(), new Stat());
+        System.out.println(new String(data));
+
         //用客户端的时候必须得添加账户才可以访问   addauth digest 用户名：密码
         TimeUnit.SECONDS.sleep(2000);
     }

@@ -18,7 +18,8 @@ class ZkDemo {
         if(zooKeeper==null){
             synchronized (Object.class){
                 if(zooKeeper==null){
-                    zooKeeper=new ZooKeeper("192.168.126.130:2181,192.168.126.133:2181,192.168.126.134:2181", 5000, new Watcher() {
+//                    zooKeeper=new ZooKeeper("192.168.126.130:2181,192.168.126.133:2181,192.168.126.134:2181", 5000, new Watcher() {
+                    zooKeeper=new ZooKeeper("localhost:2181", 5000, new Watcher() {
                         @Override
                         public void process(WatchedEvent watchedEvent) {
                             if(watchedEvent.getState()== Event.KeeperState.SyncConnected){
